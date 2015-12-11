@@ -82,7 +82,6 @@ namespace RPG_TeamFlett.GUI.Character
                     this.sDirection += new Vector2(-1, 0);
                     this.PlayAnimation("Left");
                     this.CurrentDirection = Direction.Left;
-
                 }
 
                 if (keyState.IsKeyDown(Keys.S))
@@ -91,7 +90,6 @@ namespace RPG_TeamFlett.GUI.Character
                     this.sDirection += new Vector2(0, +1);
                     this.PlayAnimation("Down");
                     this.CurrentDirection = Direction.Down;
-
                 }
 
                 if (keyState.IsKeyDown(Keys.D))
@@ -100,7 +98,6 @@ namespace RPG_TeamFlett.GUI.Character
                     this.sDirection += new Vector2(1, 0);
                     this.PlayAnimation("Right");
                     this.CurrentDirection = Direction.Right;
-
                 }
             }
             if (keyState.IsKeyDown(Keys.Space))

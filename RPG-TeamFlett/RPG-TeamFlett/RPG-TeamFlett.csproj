@@ -20,10 +20,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Windows\Debug\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -42,6 +44,13 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GUI\AnimatedSprite.cs" />
     <Compile Include="GUI\Character\PlayerWhitSpear.cs" />
+    <Compile Include="GUI\FadeEffect.cs" />
+    <Compile Include="GUI\Image.cs" />
+    <Compile Include="GUI\ImageEffect.cs" />
+    <Compile Include="GUI\Screen\GameScreen.cs" />
+    <Compile Include="GUI\Screen\ScreenManager.cs" />
+    <Compile Include="GUI\Screen\SplashScreen.cs" />
+    <Compile Include="GUI\XmlManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,12 +62,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Resourses\SplashScreen\FadeImage.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resourses\SplashScreen\Test.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\XmlLoad\ScreenManager.xml" />
+    <Content Include="Content\XmlLoad\SplashScreen.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Resourses\Character\CharWhitSpear.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

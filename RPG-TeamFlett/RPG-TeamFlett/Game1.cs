@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RPG_TeamFlett.GUI.Character;
+using RPG_TeamFlett.GUI.Screen;
+using RPG_TeamFlett.GUI;
+using System.Xml.Serialization;
 
 namespace RPG_TeamFlett
 {
@@ -10,16 +13,16 @@ namespace RPG_TeamFlett
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics = null;
+        private SpriteBatch spriteBatch = null;
 
-        PlayerWhitSpear player;
+        //  PlayerWhitSpear player;
 
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            this.graphics = new GraphicsDeviceManager(this);
+            this.Content.RootDirectory = "Content";
         }
 
         /// <summary>
@@ -30,8 +33,9 @@ namespace RPG_TeamFlett
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            this.graphics.PreferredBackBufferWidth = (int)ScreenManager.Instance.Demensions.X;
+            this.graphics.PreferredBackBufferHeight = (int)ScreenManager.Instance.Demensions.Y;
+            this.graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -41,12 +45,16 @@ namespace RPG_TeamFlett
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            // Create a new SpriteBatch, which can be used to draw textures.
+            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
+            ScreenManager.Instance.GraphicDevice = this.GraphicsDevice;
+            ScreenManager.Instance.SpriteBatch = this.spriteBatch;
+            ScreenManager.Instance.LoadContent(base.Content);
             // TODO: use this.Content to load your game content here
-            player = new PlayerWhitSpear(new Vector2(0, 0));
-            player.LoadContent(Content);
+            //      player = new PlayerWhitSpear(new Vector2(0, 0));
+            //    player.LoadContent(Content);
         }
 
         /// <summary>
@@ -56,6 +64,7 @@ namespace RPG_TeamFlett
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            ScreenManager.Instance.UnloadContent();
         }
 
         /// <summary>
@@ -65,10 +74,10 @@ namespace RPG_TeamFlett
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
 
-            // TODO: Add your update logic here
-            player.Update(gameTime);
+            ScreenManager.Instance.Update(gameTime);
+
+            //  player.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -78,12 +87,14 @@ namespace RPG_TeamFlett
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            base.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             this.spriteBatch.Begin();
-            player.Draw(this.spriteBatch);
+            ScreenManager.Instance.Draw(spriteBatch);
+            //  player.Draw(this.spriteBatch);
             this.spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
