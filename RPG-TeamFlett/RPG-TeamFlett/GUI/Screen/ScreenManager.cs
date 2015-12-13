@@ -95,6 +95,7 @@ namespace RPG_TeamFlett.GUI.Screen
 
         public void LoadContent(ContentManager content)
         {
+            this.Image = new Image();
             this.Content = new ContentManager(content.ServiceProvider, "Content");
             this.currentScreen.LoadContent();
             this.Image.LoadContent();

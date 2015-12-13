@@ -120,6 +120,11 @@ namespace RPG_TeamFlett.GUI
                 this.SourceRect = new Rectangle(0, 0, (int)dimensions.X, (int)dimensions.Y);
             }
 
+            if (this.renderTarget == null)
+            {
+                return;
+            }
+            
             this.renderTarget = new RenderTarget2D(ScreenManager.Instance.GraphicDevice,
                 (int)dimensions.X, (int)dimensions.Y);
             ScreenManager.Instance.GraphicDevice.SetRenderTarget(this.renderTarget);
