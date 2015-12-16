@@ -20,12 +20,10 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>.\</OutputPath>
+    <OutputPath>bin\Windows\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -43,14 +41,10 @@
     <Compile Include="ENUM\AnimationType.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GUI\AnimatedSprite.cs" />
-    <Compile Include="GUI\Character\PlayerWhitSpear.cs" />
-    <Compile Include="GUI\FadeEffect.cs" />
-    <Compile Include="GUI\Image.cs" />
-    <Compile Include="GUI\ImageEffect.cs" />
-    <Compile Include="GUI\Screen\GameScreen.cs" />
-    <Compile Include="GUI\Screen\ScreenManager.cs" />
-    <Compile Include="GUI\Screen\SplashScreen.cs" />
-    <Compile Include="GUI\XmlManager.cs" />
+    <Compile Include="GUI\Character\PlayerWithSpear.cs" />
+    <Compile Include="GUI\Core\GameScreen.cs" />
+    <Compile Include="GUI\Core\ScreenManager.cs" />
+    <Compile Include="GUI\Screens\SplashScreen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,26 +56,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Resourses\SplashScreen\FadeImage.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Resourses\SplashScreen\Test.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\XmlLoad\ScreenManager.xml" />
-    <Content Include="Content\XmlLoad\SplashScreen.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Content\Resourses\Character\char2.png" />
+    <Content Include="Content\Resourses\Character\char3.png" />
+    <Content Include="Content\Resourses\Screens\Black_background.jpg" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\Resourses\Character\CharWhitSpear.png">
+    <Content Include="Content\Resourses\Character\char1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

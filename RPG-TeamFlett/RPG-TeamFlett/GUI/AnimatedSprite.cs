@@ -15,7 +15,6 @@ namespace RPG_TeamFlett.GUI
 
         protected Direction CurrentDirection = Direction.None;
 
-        private const int FrameSize = 64;
         private readonly Vector2 DefaultConst = new Vector2(0, 0);
 
         protected Texture2D sTexture = null;
@@ -48,9 +47,16 @@ namespace RPG_TeamFlett.GUI
         /// Adds the current animation to the array of rectangles
         /// </summary>
         /// <param name="frames"></param>
-        public void AddAnimation( string name,int frames,int yRow,  int xStartFrame,int width,int height,Vector2 offset)
+        public void AddAnimation(
+            string name, 
+            int frames, 
+            int yRow,
+            int xStartFrame,
+            int width, 
+            int height,
+            Vector2 offset)
         {
-            int yPos = FrameSize * yRow;
+            int yPos = 64 * yRow;
 
             Rectangle[] rectangle = new Rectangle[frames];
 
@@ -102,7 +108,7 @@ namespace RPG_TeamFlett.GUI
         }
 
         public void PlayAnimation(string newAnimation)
-        {
+        {                                                               
             if ((this.currentAnimation != newAnimation) &&
                 (this.CurrentDirection == Direction.None))
             {
