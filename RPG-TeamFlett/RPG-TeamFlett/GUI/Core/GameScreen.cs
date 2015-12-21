@@ -10,24 +10,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RPG_TeamFlett.GUI.Core
 {
-    public class GameScreen
+    public abstract class GameScreen
     {
-        protected ContentManager content;
+        protected ContentManager Content;
 
         public virtual void LoadContent()
         {
-            content = new ContentManager(
-                ScreenManager.Instance.Content.ServiceProvider, "Content");
+            Content = ScreenManager.Instance.Content;
         }
 
         public virtual void UnloadContent()
         {
-            content.Unload();
+            Content.Unload();
         }
 
         public virtual void Update(GameTime gameTime)
         {
-
+            
         }
 
         public virtual void Draw(SpriteBatch spirteBatch)

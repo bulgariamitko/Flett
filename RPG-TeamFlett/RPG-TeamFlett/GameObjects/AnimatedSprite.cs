@@ -3,38 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using RPG_TeamFlett.ENUM;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace RPG_TeamFlett.GUI
+namespace RPG_TeamFlett.GameObjects
 {
-    public abstract class AnimatedSprite
+    public abstract class AnimatedSprite : GameObject
     {
         protected enum Direction { None, Up, Left, Down, Right };
 
         protected Direction CurrentDirection = Direction.None;
 
-        private readonly Vector2 DefaultConst = new Vector2(0, 0);
-
-        protected Texture2D sTexture = null;
         private int frameIndex = 0;
         private double timeElapsed = 0d;
         private double timeToUpdate = 0d;
         protected string currentAnimation = null;
-        protected Vector2 sPosition = Vector2.Zero;
-        protected Vector2 sDirection = Vector2.Zero;
+
+        protected Vector2 sDirection;
+
         private Dictionary<string, Rectangle[]> sAnimations = new Dictionary<string, Rectangle[]>();
 
-        protected AnimatedSprite(Vector2 postion)
+        protected AnimatedSprite(Vector2 position, Rectangle boundingBox) : base(position, boundingBox)
         {
-            this.sPosition = postion;
             // this.sAnimations = new Dictionary<string, Rectangle[]>();
         }
 
-        /// <summary>
-        /// Calculates the frames per secound.
-        /// </summary>
         public int FramesPerSecound
         {
             set
@@ -43,18 +38,8 @@ namespace RPG_TeamFlett.GUI
             }
         }
 
-        /// <summary>
-        /// Adds the current animation to the array of rectangles
-        /// </summary>
-        /// <param name="frames"></param>
-        public void AddAnimation(
-            string name, 
-            int frames, 
-            int yRow,
-            int xStartFrame,
-            int width, 
-            int height,
-            Vector2 offset)
+        public void AddAnimation(string name, int frames, int yRow, int xStartFrame,
+            int width, int height, Vector2 offset)
         {
             int yPos = 64 * yRow;
 
@@ -67,10 +52,13 @@ namespace RPG_TeamFlett.GUI
             this.sAnimations.Add(name, rectangle);
         }
 
-        /// <summary>
-        /// Time it takes to update a frame
-        /// </summary>
-        /// <param name="gameTime"></param>
+        protected abstract void AnimationDone(string currentAnimation);
+
+        public virtual void LoadContent(ContentManager content)
+        {
+
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             this.timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
@@ -91,18 +79,11 @@ namespace RPG_TeamFlett.GUI
             }
         }
 
-        protected abstract void AnimationDone(string currentAnimation);
-
-
-        /// <summary>
-        /// Draws the current animation on the screen
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(
-                this.sTexture,
-                this.sPosition,
+                this.Texture,
+                this.Position,
                 this.sAnimations[this.currentAnimation][this.frameIndex],
                 Color.White);
         }

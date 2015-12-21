@@ -26,33 +26,33 @@ namespace RPG_TeamFlett.GUI.Core
         public Vector2 Dimentions { private set; get; }
         public ContentManager Content { private set; get; }
 
-        public GameScreen currentScreen;
+        public GameScreen CurrentScreen { get; set; }
 
-        public ScreenManager()
+        private ScreenManager()
         {
             Dimentions = new Vector2(640, 480);
-            currentScreen = new SplashScreen();
+            CurrentScreen = new SplashScreen();
         }
 
         public void LoadContent(ContentManager Content)
         {
-            this.Content = new ContentManager(Content.ServiceProvider, "Content");
-            currentScreen.LoadContent();
+            this.Content = Content;
+            CurrentScreen.LoadContent();
         }
 
         public void UnloadContent()
         {
-            currentScreen.UnloadContent();
+            CurrentScreen.UnloadContent();
         }
 
         public void Update(GameTime gameTime)
         {
-            currentScreen.Update(gameTime);
+            CurrentScreen.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            currentScreen.Draw(spriteBatch);
+            CurrentScreen.Draw(spriteBatch);
         }
     }
 }

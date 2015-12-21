@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using RPG_TeamFlett.GUI.Core;
+using RPG_TeamFlett.GUI.Screens;
 
 namespace RPG_TeamFlett.Core
 {
@@ -12,22 +15,28 @@ namespace RPG_TeamFlett.Core
     {
         public Texture2D image;
         public string path;
+        private long splashScreenTimer = 0;
 
         public override void LoadContent()
         {
             base.LoadContent();
-            this.path = @"Resourses/Screens/Black_background.jpg";
-            image = content.Load<Texture2D>(path);
+            this.path = @"Resourses/Screens/SplashScreen.jpg";
+            image = Content.Load<Texture2D>(path);
         }
 
         public override void UnloadContent()
         {
-            base.UnloadContent();
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            KeyboardState keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.Space))
+            {
+                ScreenManager.Instance.CurrentScreen = new MenuScreen();
+                ScreenManager.Instance.CurrentScreen.LoadContent();
+            }
         }
 
         public override void Draw(SpriteBatch spirteBatch)

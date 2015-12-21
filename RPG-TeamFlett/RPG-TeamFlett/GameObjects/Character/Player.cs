@@ -1,20 +1,20 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace RPG_TeamFlett.GUI.Character
+namespace RPG_TeamFlett.GameObjects.Character
 {
-    public class PlayerWithSpear : AnimatedSprite
+    public abstract class Player : AnimatedSprite
     {
         private bool attacking = false;
 
-        public PlayerWithSpear(Vector2 postion)
-            : base(postion)
+        protected Player(Vector2 position, float speed = 100f)
+            : base(position, new Rectangle((int)position.X,(int) position.Y, 64, 64))
         {
             this.FramesPerSecound = 10;
 
@@ -36,35 +36,14 @@ namespace RPG_TeamFlett.GUI.Character
             this.AddAnimation("AttackRight", 8, 7, 0, 64, 64, new Vector2(0, 0));
 
             this.PlayAnimation("IdleDown");
-
+            this.MySpeed = speed;
         }
 
-        private const float MySpeed = 100f;
+        public float MySpeed { get; private set; }
 
-        /// <summary>
-        /// Load the texture sheet sprite
-        /// </summary>
-        /// <param name="content"></param>
-        public void LoadContent(ContentManager content)
-        {
-            this.sTexture = content.Load<Texture2D>(@"Resourses/Character/char3.png");
-        }
+        public abstract void LoadContent(ContentManager content);
 
-        public override void Update(GameTime gameTime)
-        {
-            this.sDirection = Vector2.Zero;
-            this.HandleInput(Keyboard.GetState());
-
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            this.sDirection *= MySpeed;
-
-            this.sPosition += (deltaTime * this.sDirection);
-
-            base.Update(gameTime);
-        }
-
-        private void HandleInput(KeyboardState keyState)
+        protected virtual void HandleInput(KeyboardState keyState)
         {
             if (this.attacking == false)
             {
@@ -152,6 +131,20 @@ namespace RPG_TeamFlett.GUI.Character
             }
             this.CurrentDirection = Direction.None;
          }
+
+        public override void Update(GameTime gameTime)
+        {
+            this.sDirection = Vector2.Zero;
+            this.HandleInput(Keyboard.GetState());
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            this.sDirection *= MySpeed;
+
+            this.Position += (deltaTime * this.sDirection);
+
+            base.Update(gameTime);
+        }
 
         protected override void AnimationDone(string currentAnimation)
         {

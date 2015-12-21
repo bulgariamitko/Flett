@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RPG_TeamFlett.GUI.Character;
+using RPG_TeamFlett.GameObjects.Character;
 using RPG_TeamFlett.GUI.Core;
 
 namespace RPG_TeamFlett
@@ -14,12 +14,11 @@ namespace RPG_TeamFlett
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        PlayerWithSpear player;
-
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = (int) ScreenManager.Instance.Dimentions.X;
+            graphics.PreferredBackBufferHeight = (int) ScreenManager.Instance.Dimentions.Y;
             Content.RootDirectory = "Content";
         }
 
@@ -32,7 +31,7 @@ namespace RPG_TeamFlett
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -47,8 +46,6 @@ namespace RPG_TeamFlett
 
             // TODO: use this.Content to load your game content here
             ScreenManager.Instance.LoadContent(Content);
-            player = new PlayerWithSpear(new Vector2(0, 0));
-            player.LoadContent(Content);
         
         }
 
@@ -69,9 +66,9 @@ namespace RPG_TeamFlett
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+           
             // TODO: Add your update logic here
             ScreenManager.Instance.Update(gameTime);
-            player.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -81,12 +78,11 @@ namespace RPG_TeamFlett
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             this.spriteBatch.Begin();
             ScreenManager.Instance.Draw(spriteBatch);
-            player.Draw(this.spriteBatch);
             this.spriteBatch.End();
             base.Draw(gameTime);
         }

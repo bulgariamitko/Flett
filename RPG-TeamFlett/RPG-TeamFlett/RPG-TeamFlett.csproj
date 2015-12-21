@@ -40,12 +40,19 @@
   <ItemGroup>
     <Compile Include="ENUM\AnimationType.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="GUI\AnimatedSprite.cs" />
-    <Compile Include="GUI\Character\PlayerWithSpear.cs" />
+    <Compile Include="GameObjects\Character\BlinkPlayer.cs" />
+    <Compile Include="GameObjects\Character\FasterPlayer.cs" />
+    <Compile Include="GameObjects\Character\Player.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\Interfaces\IGameObject.cs" />
+    <Compile Include="GameObjects\AnimatedSprite.cs" />
+    <Compile Include="GameObjects\Character\PlayerWithSpear.cs" />
     <Compile Include="GUI\Core\GameScreen.cs" />
     <Compile Include="GUI\Core\ScreenManager.cs" />
+    <Compile Include="GUI\Screens\LevelScreen.cs" />
+    <Compile Include="GUI\Screens\MenuScreen.cs" />
     <Compile Include="GUI\Screens\SplashScreen.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="TeamFlettGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,9 +63,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Resourses\Buttons\button1.png" />
+    <Content Include="Content\Resourses\Buttons\button2.png" />
+    <Content Include="Content\Resourses\Buttons\button3.png" />
     <Content Include="Content\Resourses\Character\char2.png" />
     <Content Include="Content\Resourses\Character\char3.png" />
     <Content Include="Content\Resourses\Screens\Black_background.jpg" />
+    <Content Include="Content\Resourses\Screens\SplashScreen.jpg" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
