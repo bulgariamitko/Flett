@@ -28,16 +28,16 @@ namespace RPG_TeamFlett.GUI.Screens
 
         private Texture2D background;
         private Color backgroundColor;
-        private Color[] button_color = new Color[NumberOfButtons];
-        private Rectangle[] button_rectangle = new Rectangle[NumberOfButtons];
-        private BState[] button_state = new BState[NumberOfButtons];
-        private Texture2D[] button_texture = new Texture2D[NumberOfButtons];
-        private double[] button_timer = new double[NumberOfButtons];
+        private Color[] buttonColor = new Color[NumberOfButtons];
+        private Rectangle[] buttonRectangle = new Rectangle[NumberOfButtons];
+        private BState[] buttonState = new BState[NumberOfButtons];
+        private Texture2D[] buttonTexture = new Texture2D[NumberOfButtons];
+        private double[] buttonTimer = new double[NumberOfButtons];
         //mouse pressed and mouse just pressed
-        private bool mpressed, prev_mpressed = false;
+        private bool mPressed, prevmPressed = false;
         //mouse location in window
         private int mx, my;
-        private double frame_time;
+        private double frameTime;
 
         public MenuScreen()
         {
@@ -47,10 +47,10 @@ namespace RPG_TeamFlett.GUI.Screens
                 (NumberOfButtons % 2) * ButtonHeight / 2;
             for (int i = 0; i < NumberOfButtons; i++)
             {
-                button_state[i] = BState.UP;
-                button_color[i] = Color.White;
-                button_timer[i] = 0.0;
-                button_rectangle[i] = new Rectangle(x, y, buttonWidth, ButtonHeight);
+                buttonState[i] = BState.UP;
+                buttonColor[i] = Color.White;
+                buttonTimer[i] = 0.0;
+                buttonRectangle[i] = new Rectangle(x, y, buttonWidth, ButtonHeight);
                 y += ButtonHeight + 5;
             }
             backgroundColor = Color.Black;
@@ -60,11 +60,11 @@ namespace RPG_TeamFlett.GUI.Screens
         {
             base.LoadContent();
             background = Content.Load<Texture2D>(@"Resourses/Screens/Black_background.jpg");
-            button_texture[firstClassButtonIndex] =
+            buttonTexture[firstClassButtonIndex] =
                 Content.Load<Texture2D>(@"Resourses/Buttons/button1.png");
-            button_texture[secondClassButtonIndex] =
+            buttonTexture[secondClassButtonIndex] =
                 Content.Load<Texture2D>(@"Resourses/Buttons/button2.png");
-            button_texture[thirdClassButtonIndex] =
+            buttonTexture[thirdClassButtonIndex] =
                 Content.Load<Texture2D>(@"Resourses/Buttons/button3.png");
         }
 
@@ -78,23 +78,24 @@ namespace RPG_TeamFlett.GUI.Screens
 
 
             // get elapsed frame time in seconds
-            frame_time = gameTime.ElapsedGameTime.Milliseconds / 1000.0;
+            frameTime = gameTime.ElapsedGameTime.Milliseconds / 1000.0;
 
             // update mouse variables
-            MouseState mouse_state = Mouse.GetState();
-            mx = mouse_state.X;
-            my = mouse_state.Y;
-            prev_mpressed = mpressed;
-            mpressed = mouse_state.LeftButton == ButtonState.Pressed;
+            MouseState mouseState = Mouse.GetState();
+            mx = mouseState.X;
+            my = mouseState.Y;
+            prevmPressed = mPressed;
+            mPressed = mouseState.LeftButton == ButtonState.Pressed;
 
             UpdateButtons();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(background);
+            spriteBatch.Draw(background,Vector2.Zero, Color.White);
+
             for (int i = 0; i < NumberOfButtons; i++)
-                spriteBatch.Draw(button_texture[i], button_rectangle[i], button_color[i]);
+                spriteBatch.Draw(buttonTexture[i], buttonRectangle[i], buttonColor[i]);
         }
 
         // wrapper for HitImageAlpha taking Rectangle and Texture
@@ -139,15 +140,15 @@ namespace RPG_TeamFlett.GUI.Screens
             switch (i)
             {
                 case firstClassButtonIndex:
-                    ScreenManager.Instance.CurrentScreen = new LevelScreen(1);
+                    ScreenManager.Instance.CurrentScreen = new LevelScreen(1,1);
                     ScreenManager.Instance.CurrentScreen.LoadContent();
                     break;
                 case secondClassButtonIndex:
-                    ScreenManager.Instance.CurrentScreen = new LevelScreen(2);
+                    ScreenManager.Instance.CurrentScreen = new LevelScreen(1,2);
                     ScreenManager.Instance.CurrentScreen.LoadContent();
                     break;
                 case thirdClassButtonIndex:
-                    ScreenManager.Instance.CurrentScreen = new LevelScreen(3);
+                    ScreenManager.Instance.CurrentScreen = new LevelScreen(1,3);
                     ScreenManager.Instance.CurrentScreen.LoadContent();
                     break;
             }
@@ -159,44 +160,44 @@ namespace RPG_TeamFlett.GUI.Screens
             {
 
                 if (HitImageAlpha(
-                    button_rectangle[i], button_texture[i], mx, my))
+                    buttonRectangle[i], buttonTexture[i], mx, my))
                 {
-                    button_timer[i] = 0.0;
-                    if (mpressed)
+                    buttonTimer[i] = 0.0;
+                    if (mPressed)
                     {
                         // mouse is currently down
-                        button_state[i] = BState.DOWN;
-                        button_color[i] = Color.Blue;
+                        buttonState[i] = BState.DOWN;
+                        buttonColor[i] = Color.Blue;
                     }
-                    else if (!mpressed && prev_mpressed)
+                    else if (!mPressed && prevmPressed)
                     {
                         // mouse was just released
-                        if (button_state[i] == BState.DOWN)
+                        if (buttonState[i] == BState.DOWN)
                         {
                             // button i was just down
-                            button_state[i] = BState.JUST_RELEASED;
+                            buttonState[i] = BState.JUST_RELEASED;
                         }
                     }
                     else
                     {
-                        button_state[i] = BState.HOVER;
-                        button_color[i] = Color.LightBlue;
+                        buttonState[i] = BState.HOVER;
+                        buttonColor[i] = Color.LightBlue;
                     }
                 }
                 else
                 {
-                    button_state[i] = BState.UP;
-                    if (button_timer[i] > 0)
+                    buttonState[i] = BState.UP;
+                    if (buttonTimer[i] > 0)
                     {
-                        button_timer[i] = button_timer[i] - frame_time;
+                        buttonTimer[i] = buttonTimer[i] - frameTime;
                     }
                     else
                     {
-                        button_color[i] = Color.White;
+                        buttonColor[i] = Color.White;
                     }
                 }
 
-                if (button_state[i] == BState.JUST_RELEASED)
+                if (buttonState[i] == BState.JUST_RELEASED)
                 {
                     TakeActionOnButton(i);
                 }

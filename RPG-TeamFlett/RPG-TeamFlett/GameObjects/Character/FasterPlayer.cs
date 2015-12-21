@@ -10,7 +10,7 @@ namespace RPG_TeamFlett.GameObjects.Character
 {
     class FasterPlayer : Player
     {
-        private const float DefaultSpeed = 200f;
+        private const float DefaultSpeed = 150f;
 
         public FasterPlayer(Vector2 position)
             : base(position, DefaultSpeed)

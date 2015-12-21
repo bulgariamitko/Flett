@@ -16,7 +16,7 @@ namespace RPG_TeamFlett.GameObjects
 
         protected Direction CurrentDirection = Direction.None;
 
-        private int frameIndex = 0;
+        protected int frameIndex = 0;
         private double timeElapsed = 0d;
         private double timeToUpdate = 0d;
         protected string currentAnimation = null;
@@ -25,9 +25,28 @@ namespace RPG_TeamFlett.GameObjects
 
         private Dictionary<string, Rectangle[]> sAnimations = new Dictionary<string, Rectangle[]>();
 
-        protected AnimatedSprite(Vector2 position, Rectangle boundingBox) : base(position, boundingBox)
+        protected AnimatedSprite(Vector2 position, Rectangle boundBox) : base(position, boundBox)
         {
-            // this.sAnimations = new Dictionary<string, Rectangle[]>();
+            this.FramesPerSecound = 10;
+
+            this.AddAnimation("Up", 9, 8, 0, 64, 64, new Vector2(0, 0));
+            this.AddAnimation("IdleUp", 1, 8, 0, 64, 64, new Vector2(0, 0));
+
+            this.AddAnimation("Left", 9, 9, 0, 64, 64, new Vector2(0, 0));
+            this.AddAnimation("IdleLeft", 1, 9, 0, 64, 64, new Vector2(0, 0));
+
+            this.AddAnimation("Down", 9, 10, 0, 64, 64, new Vector2(0, 0));
+            this.AddAnimation("IdleDown", 1, 10, 0, 64, 64, new Vector2(0, 0));
+
+            this.AddAnimation("Right", 9, 11, 0, 64, 64, new Vector2(0, 0));
+            this.AddAnimation("IdleRight", 1, 11, 0, 64, 64, new Vector2(0, 0));
+
+            this.AddAnimation("AttackUp", 8, 4, 0, 64, 64, new Vector2(0, 0));
+            this.AddAnimation("AttackLeft", 8, 5, 0, 64, 64, new Vector2(0, 0));
+            this.AddAnimation("AttackDown", 8, 6, 0, 64, 64, new Vector2(0, 0));
+            this.AddAnimation("AttackRight", 8, 7, 0, 64, 64, new Vector2(0, 0));
+
+            this.PlayAnimation("IdleDown");
         }
 
         public int FramesPerSecound
@@ -52,15 +71,19 @@ namespace RPG_TeamFlett.GameObjects
             this.sAnimations.Add(name, rectangle);
         }
 
-        protected abstract void AnimationDone(string currentAnimation);
+        protected virtual void AnimationDone(string currentAnimation)
+        {
+            
+        }
 
-        public virtual void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
 
         }
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             this.timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (this.timeElapsed > this.timeToUpdate)
@@ -88,7 +111,7 @@ namespace RPG_TeamFlett.GameObjects
                 Color.White);
         }
 
-        public void PlayAnimation(string newAnimation)
+        public virtual void PlayAnimation(string newAnimation)
         {                                                               
             if ((this.currentAnimation != newAnimation) &&
                 (this.CurrentDirection == Direction.None))

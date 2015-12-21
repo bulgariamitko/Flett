@@ -3,29 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RPG_TeamFlett.GUI.Core;
-using RPG_TeamFlett.GUI.Screens;
 
-namespace RPG_TeamFlett.Core
+namespace RPG_TeamFlett.GUI.Screens
 {
-    class SplashScreen : GameScreen
+    class GameOverScreen : GameScreen
     {
-        public Texture2D image;
-        private string path;
-
+        private Texture2D background;
         public override void LoadContent()
         {
             base.LoadContent();
-            this.path = @"Resourses/Screens/SplashScreen.jpg";
-            image = Content.Load<Texture2D>(path);
+            background = Content.Load<Texture2D>(@"Resourses/Screens/SplashScreen");
         }
 
-        public override void UnloadContent()
+        public override void Draw(SpriteBatch spirteBatch)
         {
-
+            spirteBatch.Draw(background, Vector2.Zero, Color.White);
         }
 
         public override void Update(GameTime gameTime)
@@ -43,11 +38,6 @@ namespace RPG_TeamFlett.Core
                 ScreenManager.Instance.CurrentScreen = new MenuScreen();
                 ScreenManager.Instance.CurrentScreen.LoadContent();
             }
-        }
-
-        public override void Draw(SpriteBatch spirteBatch)
-        {
-            spirteBatch.Draw(image, Vector2.Zero, Color.White);
         }
     }
 }

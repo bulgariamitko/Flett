@@ -21,6 +21,11 @@ namespace RPG_TeamFlett.GameObjects.Character
         {
             this.Texture = content.Load<Texture2D>(@"Resourses/Character/char1.png");
         }
+
+        protected override void HandleInput(KeyboardState keyState)
+        {
+            base.HandleInput(keyState);
+        }
     }
 }
 

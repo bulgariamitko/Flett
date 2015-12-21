@@ -11,11 +11,11 @@ namespace RPG_TeamFlett.GameObjects.Interfaces
 {
     public interface IGameObject
     {
-        IGameObject Collides(List<IGameObject> gameObjects);
+        IGameObject Collides(IList<IGameObject> gameObjects);
 
         Texture2D Texture { get; }
 
-        Rectangle BoundingBox { get; }
+        Rectangle BoundBox { get; }
 
         Vector2 Position { get; }
 
@@ -24,5 +24,7 @@ namespace RPG_TeamFlett.GameObjects.Interfaces
         void Draw(SpriteBatch spriteBatch);
 
         void LoadContent(ContentManager content);
+
+        int GetID();
     }
 }

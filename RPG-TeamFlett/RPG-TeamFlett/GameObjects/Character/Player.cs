@@ -11,31 +11,12 @@ namespace RPG_TeamFlett.GameObjects.Character
 {
     public abstract class Player : AnimatedSprite
     {
-        private bool attacking = false;
+        private const float DefaultNormalPlayerSpeed = 100f;
+        protected bool attacking = false;
 
-        protected Player(Vector2 position, float speed = 100f)
-            : base(position, new Rectangle((int)position.X,(int) position.Y, 64, 64))
+        protected Player(Vector2 position, float speed = DefaultNormalPlayerSpeed)
+            : base(position, new Rectangle((int)position.X + 10,(int) position.Y + 10, 50, 50))
         {
-            this.FramesPerSecound = 10;
-
-            this.AddAnimation("Up", 9, 8, 0, 64, 64, new Vector2(0, 0));
-            this.AddAnimation("IdleUp", 1, 8, 0, 64, 64, new Vector2(0, 0));
-
-            this.AddAnimation("Left", 9, 9, 0, 64, 64, new Vector2(0, 0));
-            this.AddAnimation("IdleLeft", 1, 9, 0, 64, 64, new Vector2(0, 0));
-
-            this.AddAnimation("Down", 9, 10, 0, 64, 64, new Vector2(0, 0));
-            this.AddAnimation("IdleDown", 1, 10, 0, 64, 64, new Vector2(0, 0));
-
-            this.AddAnimation("Right", 9, 11, 0, 64, 64, new Vector2(0, 0));
-            this.AddAnimation("IdleRight", 1, 11, 0, 64, 64, new Vector2(0, 0));
-
-            this.AddAnimation("AttackUp", 8, 4, 0, 64, 64, new Vector2(0, 0));
-            this.AddAnimation("AttackLeft", 8, 5, 0, 64, 64, new Vector2(0, 0));
-            this.AddAnimation("AttackDown", 8, 6, 0, 64, 64, new Vector2(0, 0));
-            this.AddAnimation("AttackRight", 8, 7, 0, 64, 64, new Vector2(0, 0));
-
-            this.PlayAnimation("IdleDown");
             this.MySpeed = speed;
         }
 
@@ -82,53 +63,53 @@ namespace RPG_TeamFlett.GameObjects.Character
 
                 }
             }
-            if (keyState.IsKeyDown(Keys.Space))
-            {
-                if (this.currentAnimation.Contains("Up"))
-                {
-                    this.PlayAnimation("AttackUp");
-                    this.attacking = true;
-                    this.CurrentDirection = Direction.Up;
-                }
-                if (this.currentAnimation.Contains("Left"))
-                {
-                    this.PlayAnimation("AttackLeft");
-                    this.attacking = true;
-                    this.CurrentDirection = Direction.Left;
-                }
-                if (this.currentAnimation.Contains("Down"))
-                {
-                    this.PlayAnimation("AttackDown");
-                    this.attacking = true;
-                    this.CurrentDirection = Direction.Down;
-                }
-                if (this.currentAnimation.Contains("Right"))
-                {
-                    this.PlayAnimation("AttackRight");
-                    this.attacking = true;
-                    this.CurrentDirection = Direction.Right;
-                }
+            //if (keyState.IsKeyDown(Keys.Space))
+            //{
+            //    if (this.currentAnimation.Contains("Up"))
+            //    {
+            //        this.PlayAnimation("AttackUp");
+            //        this.attacking = true;
+            //        this.CurrentDirection = Direction.Up;
+            //    }
+            //    if (this.currentAnimation.Contains("Left"))
+            //    {
+            //        this.PlayAnimation("AttackLeft");
+            //        this.attacking = true;
+            //        this.CurrentDirection = Direction.Left;
+            //    }
+            //    if (this.currentAnimation.Contains("Down"))
+            //    {
+            //        this.PlayAnimation("AttackDown");
+            //        this.attacking = true;
+            //        this.CurrentDirection = Direction.Down;
+            //    }
+            //    if (this.currentAnimation.Contains("Right"))
+            //    {
+            //        this.PlayAnimation("AttackRight");
+            //        this.attacking = true;
+            //        this.CurrentDirection = Direction.Right;
+            //    }
 
-            }
-            else if (this.attacking == false)
-            {
-                if (this.currentAnimation.Contains("Up"))
-                {
-                    this.PlayAnimation("IdleUp");
-                }
-                if (this.currentAnimation.Contains("Left"))
-                {
-                    this.PlayAnimation("IdleLeft");
-                }
-                if (this.currentAnimation.Contains("Down"))
-                {
-                    this.PlayAnimation("IdleDown");
-                }
-                if (this.currentAnimation.Contains("Right"))
-                {
-                    this.PlayAnimation("IdleRight");
-                }
-            }
+            //}
+            //else if (this.attacking == false)
+            //{
+            //    if (this.currentAnimation.Contains("Up"))
+            //    {
+            //        this.PlayAnimation("IdleUp");
+            //    }
+            //    if (this.currentAnimation.Contains("Left"))
+            //    {
+            //        this.PlayAnimation("IdleLeft");
+            //    }
+            //    if (this.currentAnimation.Contains("Down"))
+            //    {
+            //        this.PlayAnimation("IdleDown");
+            //    }
+            //    if (this.currentAnimation.Contains("Right"))
+            //    {
+            //        this.PlayAnimation("IdleRight");
+            //    }
+            //}
             this.CurrentDirection = Direction.None;
          }
 
@@ -152,6 +133,11 @@ namespace RPG_TeamFlett.GameObjects.Character
             {
                 this.attacking = false;
             }
+        }
+
+        public override int GetID()
+        {
+            return 1;
         }
     }
 }

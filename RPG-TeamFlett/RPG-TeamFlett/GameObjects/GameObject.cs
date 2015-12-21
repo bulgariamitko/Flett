@@ -11,26 +11,32 @@ namespace RPG_TeamFlett.GameObjects
 {
     public abstract class GameObject : IGameObject
     {
-        protected GameObject(Vector2 position, Rectangle boundingBox)
+        private Rectangle boundBox;
+        protected GameObject(Vector2 position, Rectangle boundBox)
         {
-            this.BoundingBox = boundingBox;
+            this.BoundBox = boundBox;
             this.Position = position;
         }
 
-        public virtual IGameObject Collides(List<IGameObject> gameObjects)
+        public virtual IGameObject Collides(IList<IGameObject> gameObjects)
         {
-            return gameObjects.FirstOrDefault(gameObject => this.BoundingBox.Intersects(gameObject.BoundingBox));
+            return gameObjects.FirstOrDefault(gameObject => this.BoundBox.Intersects(gameObject.BoundBox));
         }
 
         public Texture2D Texture { get; protected set; }
 
-        public Rectangle BoundingBox { get; private set; }
+        public Rectangle BoundBox
+        {
+            get { return this.boundBox; }
+            private set { this.boundBox = value; }
+        }
 
         public Vector2 Position { get; protected set; }
 
         public virtual void Update(GameTime gameTime)
         {
-
+            this.boundBox.X = (int) this.Position.X + 10;
+            this.boundBox.Y = (int) this.Position.Y + 10;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -41,5 +47,7 @@ namespace RPG_TeamFlett.GameObjects
         {
             
         }
+
+        public abstract int GetID();
     }
 }

@@ -43,12 +43,15 @@
     <Compile Include="GameObjects\Character\BlinkPlayer.cs" />
     <Compile Include="GameObjects\Character\FasterPlayer.cs" />
     <Compile Include="GameObjects\Character\Player.cs" />
+    <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Interfaces\IGameObject.cs" />
     <Compile Include="GameObjects\AnimatedSprite.cs" />
     <Compile Include="GameObjects\Character\PlayerWithSpear.cs" />
+    <Compile Include="GameObjects\StaticSprite.cs" />
     <Compile Include="GUI\Core\GameScreen.cs" />
     <Compile Include="GUI\Core\ScreenManager.cs" />
+    <Compile Include="GUI\Screens\GameOverScreen.cs" />
     <Compile Include="GUI\Screens\LevelScreen.cs" />
     <Compile Include="GUI\Screens\MenuScreen.cs" />
     <Compile Include="GUI\Screens\SplashScreen.cs" />
@@ -68,6 +71,8 @@
     <Content Include="Content\Resourses\Buttons\button3.png" />
     <Content Include="Content\Resourses\Character\char2.png" />
     <Content Include="Content\Resourses\Character\char3.png" />
+    <Content Include="Content\Resourses\Character\guard.png" />
+    <Content Include="Content\Resourses\Door.png" />
     <Content Include="Content\Resourses\Screens\Black_background.jpg" />
     <Content Include="Content\Resourses\Screens\SplashScreen.jpg" />
     <Content Include="Icon.ico" />
@@ -75,7 +80,9 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Content\Resourses\SpriteFonts\MyFont.spritefont" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Resourses\Character\char1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
