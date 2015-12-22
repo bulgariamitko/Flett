@@ -6,15 +6,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using RPG_TeamFlett.GameObjects.Interfaces;
 using RPG_TeamFlett.GUI;
 
 namespace RPG_TeamFlett.GameObjects.Character
 {
     public class PlayerWithSpear : Player
     {
-        public PlayerWithSpear(Vector2 position)
+        private const int DefaulCooldown = 300;
+        private int attackCooldown;
+        private IList<IGameObject> enemies; 
+
+        public PlayerWithSpear(Vector2 position, IList<IGameObject> enemies)
             : base(position)
         {
+            this.enemies = enemies;
+            this.attackCooldown = 0;
         }
 
         public override void LoadContent(ContentManager content)
@@ -24,7 +31,61 @@ namespace RPG_TeamFlett.GameObjects.Character
 
         protected override void HandleInput(KeyboardState keyState)
         {
+            if (keyState.IsKeyDown(Keys.Space) && this.attackCooldown <= 0)
+            {
+                if (this.currentAnimation.Contains("Up"))
+                {
+                    this.PlayAnimation("AttackUp");
+                    this.attacking = true;
+                    this.CurrentDirection = Direction.Up;
+                    HitEnemy(this.Position + new Vector2(25, -25), this.enemies);
+                }
+                if (this.currentAnimation.Contains("Left"))
+                {
+                    this.PlayAnimation("AttackLeft");
+                    this.attacking = true;
+                    this.CurrentDirection = Direction.Left;
+                    HitEnemy(this.Position + new Vector2(-25, 25), this.enemies);
+                }
+                if (this.currentAnimation.Contains("Down"))
+                {
+                    this.PlayAnimation("AttackDown");
+                    this.attacking = true;
+                    this.CurrentDirection = Direction.Down;
+                    HitEnemy(this.Position + new Vector2(25, 75), this.enemies);
+                }
+                if (this.currentAnimation.Contains("Right"))
+                {
+                    this.PlayAnimation("AttackRight");
+                    this.attacking = true;
+                    this.CurrentDirection = Direction.Right;
+                    HitEnemy(this.Position + new Vector2(75, 25), this.enemies);
+                }
+            }
             base.HandleInput(keyState);
+        }
+
+        private void HitEnemy(Vector2 position, IList<IGameObject> enemies)
+        {
+            
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                var distance = Math.Sqrt(Math.Pow(position.X - enemies[i].Position.X + 25, 2)
+                                  + Math.Pow(position.Y - enemies[i].Position.Y + 25, 2));
+                if (distance < 50)
+                {
+                    enemies.RemoveAt(i);
+                    break;
+                }
+            }
+            this.attackCooldown = DefaulCooldown;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (attackCooldown > 0)
+                attackCooldown--;
+            base.Update(gameTime);
         }
     }
 }

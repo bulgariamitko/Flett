@@ -59,7 +59,7 @@ namespace RPG_TeamFlett.GUI.Screens
         public override void LoadContent()
         {
             base.LoadContent();
-            background = Content.Load<Texture2D>(@"Resourses/Screens/Black_background.jpg");
+            background = Content.Load<Texture2D>(@"Resourses/Screens/menuBackground.png");
             buttonTexture[firstClassButtonIndex] =
                 Content.Load<Texture2D>(@"Resourses/Buttons/button1.png");
             buttonTexture[secondClassButtonIndex] =

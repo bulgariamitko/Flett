@@ -77,7 +77,7 @@ namespace RPG_TeamFlett.GameObjects
         {
             if (isMovingUpDown)
             {
-                if (this.Position.Y < 50)
+                if (this.Position.Y < 5)
                     this.CurrentDirection = Direction.Down;
                 if (this.Position.Y > ScreenManager.Instance.Dimentions.Y - 50)
                     this.CurrentDirection = Direction.Up;
@@ -100,7 +100,7 @@ namespace RPG_TeamFlett.GameObjects
             }
             else
             {
-                if (this.Position.X < 50)
+                if (this.Position.X < 5)
                     this.CurrentDirection = Direction.Right;
                 if (this.Position.X > ScreenManager.Instance.Dimentions.X - 50)
                     this.CurrentDirection = Direction.Left;

@@ -15,7 +15,7 @@ namespace RPG_TeamFlett.GUI.Screens
         public override void LoadContent()
         {
             base.LoadContent();
-            background = Content.Load<Texture2D>(@"Resourses/Screens/SplashScreen");
+            background = Content.Load<Texture2D>(@"Resourses/Screens/gameOverScreen.png");
         }
 
         public override void Draw(SpriteBatch spirteBatch)

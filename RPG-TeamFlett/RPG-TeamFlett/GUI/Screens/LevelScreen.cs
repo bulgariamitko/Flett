@@ -25,13 +25,13 @@ namespace RPG_TeamFlett.GUI.Screens
             this.levelNumber = levelNumber;
             this.characterNumber = characterClassNumber;
             this.GameObjects = new List<IGameObject>();
+            this.GenerateEnemy(levelNumber);
             if (characterClassNumber == 1)
-                player = new PlayerWithSpear(Vector2.Zero);
+                player = new PlayerWithSpear(Vector2.Zero, this.GameObjects);
             else if (characterClassNumber == 2)
                 player = new BlinkPlayer(Vector2.Zero);
             else if (characterClassNumber == 3)
                 player = new FasterPlayer(Vector2.Zero);
-            this.GenerateEnemy(levelNumber);
 
             float screenWidth = ScreenManager.Instance.Dimentions.X,
                 screenHeight = ScreenManager.Instance.Dimentions.Y;
@@ -52,11 +52,6 @@ namespace RPG_TeamFlett.GUI.Screens
             {
                 gameObject.LoadContent(Content);
             }
-        }
-
-        public override void UnloadContent()
-        {
-            base.UnloadContent();
         }
 
         public override void Update(GameTime gameTime)

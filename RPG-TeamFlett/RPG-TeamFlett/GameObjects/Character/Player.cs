@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RPG_TeamFlett.GUI.Core;
 
 namespace RPG_TeamFlett.GameObjects.Character
 {
@@ -26,6 +27,8 @@ namespace RPG_TeamFlett.GameObjects.Character
 
         protected virtual void HandleInput(KeyboardState keyState)
         {
+             //Every player can implement other keys
+             //This is basic movement
             if (this.attacking == false)
             {
                 if (keyState.IsKeyDown(Keys.Up))
@@ -63,53 +66,26 @@ namespace RPG_TeamFlett.GameObjects.Character
 
                 }
             }
-            //if (keyState.IsKeyDown(Keys.Space))
-            //{
-            //    if (this.currentAnimation.Contains("Up"))
-            //    {
-            //        this.PlayAnimation("AttackUp");
-            //        this.attacking = true;
-            //        this.CurrentDirection = Direction.Up;
-            //    }
-            //    if (this.currentAnimation.Contains("Left"))
-            //    {
-            //        this.PlayAnimation("AttackLeft");
-            //        this.attacking = true;
-            //        this.CurrentDirection = Direction.Left;
-            //    }
-            //    if (this.currentAnimation.Contains("Down"))
-            //    {
-            //        this.PlayAnimation("AttackDown");
-            //        this.attacking = true;
-            //        this.CurrentDirection = Direction.Down;
-            //    }
-            //    if (this.currentAnimation.Contains("Right"))
-            //    {
-            //        this.PlayAnimation("AttackRight");
-            //        this.attacking = true;
-            //        this.CurrentDirection = Direction.Right;
-            //    }
-
-            //}
-            //else if (this.attacking == false)
-            //{
-            //    if (this.currentAnimation.Contains("Up"))
-            //    {
-            //        this.PlayAnimation("IdleUp");
-            //    }
-            //    if (this.currentAnimation.Contains("Left"))
-            //    {
-            //        this.PlayAnimation("IdleLeft");
-            //    }
-            //    if (this.currentAnimation.Contains("Down"))
-            //    {
-            //        this.PlayAnimation("IdleDown");
-            //    }
-            //    if (this.currentAnimation.Contains("Right"))
-            //    {
-            //        this.PlayAnimation("IdleRight");
-            //    }
-            //}
+            
+            if (this.attacking == false)
+            {
+                if (this.currentAnimation.Contains("Up"))
+                {
+                    this.PlayAnimation("IdleUp");
+                }
+                if (this.currentAnimation.Contains("Left"))
+                {
+                    this.PlayAnimation("IdleLeft");
+                }
+                if (this.currentAnimation.Contains("Down"))
+                {
+                    this.PlayAnimation("IdleDown");
+                }
+                if (this.currentAnimation.Contains("Right"))
+                {
+                    this.PlayAnimation("IdleRight");
+                }
+            }
             this.CurrentDirection = Direction.None;
          }
 
@@ -122,7 +98,10 @@ namespace RPG_TeamFlett.GameObjects.Character
 
             this.sDirection *= MySpeed;
 
-            this.Position += (deltaTime * this.sDirection);
+            var newPos = this.Position + (deltaTime * this.sDirection);
+            if (newPos.X >= 0 && newPos.X < ScreenManager.Instance.Dimentions.X - this.BoundBox.Width &&
+                newPos.Y >= 0 && newPos.Y < ScreenManager.Instance.Dimentions.Y - this.BoundBox.Height)
+                this.Position = newPos;
 
             base.Update(gameTime);
         }
